@@ -105,9 +105,7 @@ defmodule Tds.Tokens do
     tokens=  case tokens do
                 [:columns,list]-> tokens
                 [{:columns,list}|_tail]->[columns: list]
-            end
-    IO.inspect row
-    IO.inspect tokens        
+            end    
     tokens = Keyword.update(tokens, :rows, [row], fn(_x) -> [row|tokens[:rows]] end)
     {tokens, tail}
   end
