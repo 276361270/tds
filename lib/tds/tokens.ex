@@ -101,6 +101,13 @@ defmodule Tds.Tokens do
     column_count = Enum.count tokens[:columns]
     {row, tail} = decode_row_columns(tail, tokens, [], column_count, 0)
     row = row |> Enum.reverse
+
+    tokens=  case tokens do
+                [:columns,list]-> tokens
+                [{:columns,list}|_tail]->[columns: list]
+            end
+    IO.inspect row
+    IO.inspect tokens        
     tokens = Keyword.update(tokens, :rows, [row], fn(_x) -> [row|tokens[:rows]] end)
     {tokens, tail}
   end
