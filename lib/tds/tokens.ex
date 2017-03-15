@@ -103,8 +103,8 @@ defmodule Tds.Tokens do
     row = row |> Enum.reverse
 
     tokens=  case tokens do
-                [:columns,list]-> tokens
                 [{:columns,list}|_tail]->[columns: list]
+                                     _ -> tokens
             end    
     tokens = Keyword.update(tokens, :rows, [row], fn(_x) -> [row|tokens[:rows]] end)
     {tokens, tail}
